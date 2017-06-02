@@ -105,6 +105,22 @@ export function shareGlobalState() {
 		global.__mobxGlobal = ownState;
 }
 
+export function shareState( namespace: string ) {
+	const global = getGlobal();
+	const ownState = globalState
+
+	if (!global.__mobxGlobalNamespaces)
+		global.__mobxGlobalNamespaces = {}
+
+
+	if (global.__mobxGlobalNamespaces[ namespace ])
+		globalState = global.__mobxGlobalNamespaces[ namespace ];
+	else
+		global.__mobxGlobalNamespaces[ namespace ] = ownState;
+
+}
+
+
 export function getGlobalState(): any {
 	return globalState;
 }
